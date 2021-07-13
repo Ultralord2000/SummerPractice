@@ -1,0 +1,39 @@
+package ru.mai;
+
+import java.io.FileNotFoundException;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+
+
+public class CreatePdf {
+    public static void main(String[] args) {
+        String dest = "C:/java/itxt/Журнал_Практики.pdf";
+        createEmptyPage(dest);
+
+    }
+
+    private static void createEmptyPage(String dest) {
+        try {
+
+            PdfWriter pdfWriter = new PdfWriter(dest);
+
+            PdfDocument pdfDoc = new PdfDocument(pdfWriter);
+            pdfDoc.addNewPage();
+
+            Document doc = new Document(pdfDoc);
+            createParagraphs(doc);
+            doc.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+
+    private static void createParagraphs(Document doc) {
+        String para1 = "This is the string in the pdf, made with iText!";
+        Paragraph par1 = new Paragraph();
+        par1.add(para1);
+        doc.add(par1);
+    }
+}
